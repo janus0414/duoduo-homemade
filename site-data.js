@@ -55,8 +55,8 @@ const CATEGORIES = [
 ];
 
 window.siteDataRemote = {
-    enabled: false,
-    url: '',
+    enabled: true,
+    url: 'https://script.google.com/macros/s/AKfycby1mAsAg2BJmBC3ZpxepWLY1zuoydhcG2fAPimNLYq9mKVEzK7THyNBBJiYlRoRuv0/exec',
     timeoutMs: 8000
 };
 
