@@ -1,0 +1,408 @@
+/* =========================================
+   全域設定與奶茶色系變數
+   ========================================= */
+:root {
+    --primary-color: #c48b63; /* 焦糖奶茶色 (主色調，用於按鈕和標題強調) */
+    --secondary-color: #eaddcf; /* 輕柔奶蓋色 (次要背景色) */
+    --bg-color: #fcfaf8; /* 溫暖的米白色 (網頁底色) */
+    --text-color: #5c4a3d; /* 深可可色 (文字顏色，比純黑更柔和) */
+    --white: #ffffff;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: "Helvetica Neue", Arial, "微軟正黑體", sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.8;
+}
+
+/* =========================================
+   頂部導覽列
+   ========================================= */
+header {
+    background-color: var(--white);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    position: sticky; /* 讓導覽列固定在頂部 */
+    top: 0;
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    letter-spacing: 2px;
+}
+
+.logo img {
+    height: 45px;
+    width: auto;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: var(--primary-color);
+}
+
+/* =========================================
+   共用區塊設定 (Section)
+   ========================================= */
+section {
+    padding: 80px 5%;
+    text-align: center;
+}
+
+h2 {
+    font-size: 2rem;
+    color: var(--primary-color);
+    margin-bottom: 30px;
+}
+
+h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: var(--primary-color);
+    margin: 10px auto 0;
+}
+
+/* =========================================
+   首頁橫幅 (Hero)
+   ========================================= */
+#hero {
+    /* 這裡放了一張充滿烘焙氛圍的背景圖，並加上半透明遮罩讓文字清楚 */
+    background: linear-gradient(rgba(92, 74, 61, 0.6), rgba(92, 74, 61, 0.6)), 
+                url('images/Main.jpg') center/cover no-repeat;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--white);
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 15px;
+    letter-spacing: 2px;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+}
+
+/* =========================================
+   品牌故事 (About)
+   ========================================= */
+#about {
+    background-color: var(--secondary-color);
+}
+
+#about p {
+    max-width: 800px;
+    margin: 0 auto 15px auto;
+    font-size: 1.1rem;
+}
+
+/* =========================================
+   甜點目錄 (Menu & Grid)
+   ========================================= */
+.notice {
+    color: #d9534f;
+    font-size: 0.9rem;
+    margin-bottom: 40px;
+}
+
+.product-grid {
+    display: grid;
+    /* CSS Grid 魔法：自動排版，螢幕變小會自動變成單排 */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.product-card {
+    background-color: var(--white);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    transition: transform 0.3s;
+    text-align: left;
+    padding-bottom: 20px;
+}
+
+.product-card:hover {
+    transform: translateY(-10px); /* 滑鼠游標移過去時會有微微浮起的動畫 */
+}
+
+.product-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover; /* 讓圖片填滿且不變形 */
+}
+
+.product-card h3 {
+    padding: 15px 20px 5px;
+    color: var(--text-color);
+}
+
+.product-card p {
+    padding: 0 20px 15px;
+    font-size: 0.95rem;
+    color: #7a6a5e;
+}
+
+.product-card .price {
+    display: block;
+    padding: 0 20px;
+    font-weight: bold;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+/* =========================================
+   訂購方式 (Order)
+   ========================================= */
+.contact-methods {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+    background-color: var(--white);
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.contact-methods p {
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+.social-links {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn {
+    display: inline-block;
+    background-color: var(--primary-color);
+    color: var(--white);
+    text-decoration: none;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 25px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn:hover {
+    background-color: #ab754f;
+}
+
+/* =========================================
+   頁尾 (Footer)
+   ========================================= */
+footer {
+    background-color: var(--text-color);
+    color: var(--white);
+    text-align: center;
+    padding: 20px 0;
+    font-size: 0.9rem;
+}
+
+/* =========================================
+   RWD 響應式設計 (平板)
+   ========================================= */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 5%;
+    }
+
+    .logo {
+        font-size: 1.3rem;
+    }
+
+    .logo img {
+        height: 38px;
+    }
+
+    nav ul {
+        gap: 15px;
+    }
+
+    section {
+        padding: 60px 5%;
+    }
+
+    h2 {
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+    }
+
+    #hero {
+        height: 55vh;
+    }
+
+    .hero-content {
+        padding: 0 20px;
+        text-align: center;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1.05rem;
+    }
+
+    #about p {
+        font-size: 1rem;
+    }
+
+    .product-grid {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+
+    .product-card img {
+        height: 200px;
+    }
+
+    .contact-methods {
+        padding: 20px;
+    }
+
+    .contact-methods p {
+        font-size: 1rem;
+    }
+}
+
+/* =========================================
+   RWD 響應式設計 (手機)
+   ========================================= */
+@media (max-width: 480px) {
+    header {
+        padding: 10px 4%;
+        gap: 8px;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        gap: 8px;
+    }
+
+    .logo img {
+        height: 32px;
+    }
+
+    nav ul {
+        gap: 12px;
+        font-size: 0.9rem;
+    }
+
+    section {
+        padding: 45px 4%;
+    }
+
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 18px;
+    }
+
+    #hero {
+        height: 45vh;
+    }
+
+    .hero-content {
+        padding: 0 15px;
+    }
+
+    .hero-content h1 {
+        font-size: 1.5rem;
+        letter-spacing: 1px;
+    }
+
+    .hero-content p {
+        font-size: 0.95rem;
+    }
+
+    #about p {
+        font-size: 0.95rem;
+    }
+
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+
+    .product-card img {
+        height: 180px;
+    }
+
+    .product-card h3 {
+        padding: 12px 15px 5px;
+        font-size: 1rem;
+    }
+
+    .product-card p {
+        padding: 0 15px 12px;
+        font-size: 0.9rem;
+    }
+
+    .product-card .price {
+        padding: 0 15px;
+        font-size: 1rem;
+    }
+
+    .contact-methods {
+        padding: 18px 15px;
+    }
+
+    .contact-methods p {
+        font-size: 0.95rem;
+        margin-bottom: 12px;
+    }
+
+    .btn {
+        padding: 10px 16px;
+        font-size: 0.95rem;
+    }
+
+    footer {
+        font-size: 0.8rem;
+        padding: 15px 10px;
+    }
+}
