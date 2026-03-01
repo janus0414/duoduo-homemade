@@ -995,6 +995,10 @@ footer {
         font-size: 1.05rem;
     }
 
+    #hero::after {
+        display: none;
+    }
+
     .hero-tagline {
         font-size: 0.9rem;
         letter-spacing: 3px;
@@ -1112,6 +1116,10 @@ footer {
 
     .hero-content p {
         font-size: 0.95rem;
+    }
+
+    #hero::after {
+        display: none;
     }
 
     .hero-tagline {
