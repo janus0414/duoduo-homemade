@@ -164,6 +164,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         menu.categories.forEach((category) => {
             const card = document.createElement('div');
             card.className = 'product-card category-card';
+            card.setAttribute('data-aos', 'fade-up');
             card.dataset.category = category.id;
             card.tabIndex = 0;
             card.setAttribute('role', 'button');

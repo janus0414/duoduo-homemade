@@ -26,7 +26,9 @@ body {
    頂部導覽列
    ========================================= */
 header {
-    background-color: var(--white);
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     display: flex;
     justify-content: space-between;
@@ -385,6 +387,33 @@ h2::after {
 }
 
 /* =========================================
+   懸浮聯絡按鈕 (FAB)
+   ========================================= */
+.floating-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #00c300;
+    color: var(--white);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 14px 24px;
+    border-radius: 50px;
+    box-shadow: 0 4px 15px rgba(0, 195, 0, 0.35);
+    z-index: 9999;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.floating-btn:hover {
+    box-shadow: 0 6px 20px rgba(0, 195, 0, 0.45);
+}
+
+.floating-btn:active {
+    transform: scale(0.95);
+}
+
+/* =========================================
    頁尾 (Footer)
    ========================================= */
 footer {
@@ -415,10 +444,12 @@ footer {
 
     nav ul {
         gap: 15px;
+        flex-wrap: wrap;
+        justify-content: center;
     }
 
     section {
-        padding: 60px 5%;
+        padding: 50px 8%;
     }
 
     h2 {
@@ -437,6 +468,7 @@ footer {
 
     .hero-content h1 {
         font-size: 2rem;
+        line-height: 1.4;
     }
 
     .hero-content p {
