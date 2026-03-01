@@ -51,10 +51,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
-    const siteData = (await fetchRemoteSiteData()) || localSiteData;
+    const loadingOverlay = document.getElementById('loading-overlay');
+    const errorOverlay = document.getElementById('error-overlay');
 
-    if (!siteData) {
+    const remoteSiteData = await fetchRemoteSiteData();
+
+    if (!remoteSiteData) {
+        if (loadingOverlay) loadingOverlay.style.display = 'none';
+        if (errorOverlay) errorOverlay.style.display = 'flex';
         return;
+    }
+
+    const siteData = remoteSiteData;
+
+    if (loadingOverlay) {
+        loadingOverlay.classList.add('fade-out');
+        setTimeout(() => { loadingOverlay.style.display = 'none'; }, 400);
     }
 
     const applySeo = () => {
