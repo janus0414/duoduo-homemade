@@ -74,6 +74,8 @@ function buildSiteData_() {
       logoAlt: text_(siteMap['brand.logoAlt']),
       heroTitle: text_(siteMap['brand.heroTitle']),
       heroSubtitle: text_(siteMap['brand.heroSubtitle']),
+      heroTagline: text_(siteMap['brand.heroTagline']),
+      heroImage: text_(siteMap['brand.heroImage']),
       aboutTitle: text_(siteMap['brand.aboutTitle']),
       aboutParagraphs: aboutParagraphs
     },
@@ -95,7 +97,11 @@ function buildSiteData_() {
       steps: stepList,
       contacts: contactList
     },
-    footerText: text_(siteMap['footer.text'])
+    footerText: text_(siteMap['footer.text']),
+    floatingBtn: {
+      label: text_(siteMap['floatingBtn.label']),
+      url: text_(siteMap['floatingBtn.url'])
+    }
   };
 }
 

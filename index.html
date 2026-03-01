@@ -3,13 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>多多手作烘培 | 溫暖你的每一天</title>
-    <meta id="meta-description" name="description" content="">
-    <meta id="meta-keywords" name="keywords" content="">
-    <meta id="meta-og-title" property="og:title" content="">
-    <meta id="meta-og-description" property="og:description" content="">
+    <title>多多手作烘培 | 手作果乾與花禮</title>
+    <meta id="meta-description" name="description" content="多多手作烘培提供手作果乾與鳳梨花禮，清楚標價、接單製作，歡迎聯繫訂購。">
+    <meta id="meta-keywords" name="keywords" content="多多手作烘培,果乾,鳳梨乾,蘋果乾,鳳梨花禮,手作甜點,聯繫訂購">
+    <!-- Facebook Open Graph 社群分享標籤 -->
+    <meta id="meta-og-title" property="og:title" content="多多手作烘培｜手作果乾與花禮">
+    <meta id="meta-og-description" property="og:description" content="查看最新品項、價格與照片，歡迎透過 Line 或 Instagram 聯繫訂購。">
     <meta property="og:type" content="website">
-    <meta id="meta-og-image" property="og:image" content="">
+    <meta id="meta-og-image" property="og:image" content="images/Main.jpg">
+    <!-- ★ 請將下方 URL 替換成你的實際網站網址 ★ -->
+    <meta id="meta-og-url" property="og:url" content="https://你的網站網址.com">
+    <meta property="og:locale" content="zh_TW">
+    <meta property="og:site_name" content="多多手作烘培">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 </head>
@@ -20,10 +30,13 @@
             <img id="logo-image" src="images/Logo.jpg" alt="多多手作烘培">
             <span id="brand-name">多多手作烘培</span>
         </div>
-        <nav>
+        <button class="hamburger" id="hamburger" type="button" aria-label="開啟選單" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <nav id="main-nav">
             <ul>
                 <li><a href="#about">品牌故事</a></li>
-                <li><a href="#menu">甜點目錄</a></li>
+                <li><a href="#menu">作品集</a></li>
                 <li><a href="#trust">安心資訊</a></li>
                 <li><a href="#order">訂購方式</a></li>
             </ul>
@@ -32,38 +45,39 @@
 
     <section id="hero">
         <div class="hero-content">
-            <h1 id="hero-title">用純粹的食材，烘焙真實的溫暖</h1>
-            <p id="hero-subtitle">每一份甜點，都是專屬您的等待</p>
+            <p class="hero-tagline" id="hero-tagline">— Handmade with love —</p>
+            <h1 id="hero-title"></h1>
+            <p id="hero-subtitle"></p>
         </div>
     </section>
 
     <section id="about" data-aos="fade-up">
-        <h2 id="about-title">關於多多</h2>
-        <div id="about-content"></div>
+        <h2 id="about-title"></h2>
+        <div id="about-content" data-aos="fade-up" data-aos-delay="200"></div>
     </section>
 
     <section id="menu">
-        <h2 id="menu-title">甜點目錄</h2>
-        <p id="menu-notice" class="notice">※ 所有甜點皆為<b>聯絡後接單製作</b>，以確保最高品質與新鮮度 ※</p>
-        <p id="category-tip" class="category-tip">點擊下方分類可查看更多品項與照片</p>
+        <h2 id="menu-title"></h2>
+        <p id="menu-notice" class="notice"></p>
+        <p id="category-tip" class="category-tip"></p>
         
         <div id="category-grid" class="product-grid"></div>
     </section>
 
     <section id="catalog-details">
-        <h2 id="category-title">更多品項｜胭脂鳳梨乾</h2>
+        <h2 id="category-title"></h2>
         <div id="category-panels"></div>
     </section>
 
     <section id="trust">
-        <h2 id="trust-title">安心資訊</h2>
+        <h2 id="trust-title"></h2>
         <p id="trust-intro"></p>
         <div id="trust-grid" class="trust-grid"></div>
     </section>
 
     <section id="order" data-aos="fade-up">
-        <h2 id="order-title">如何訂購</h2>
-        <p id="order-intro">為了給您最好的品質，所有甜點請提前至少 3 個工作天預約。</p>
+        <h2 id="order-title"></h2>
+        <p id="order-intro"></p>
         <div class="contact-methods">
             <div id="order-steps" class="order-steps"></div>
             
@@ -84,13 +98,20 @@
         </div>
     </div>
 
-    <a href="#" class="floating-btn">💬 Line 預約</a>
+    <a href="#" class="floating-btn" id="floating-line-btn" style="display:none"></a>
+
+    <button class="back-to-top" id="back-to-top" type="button" aria-label="回到頂部">↑</button>
 
     <footer>
-        <p id="footer-text">&copy; 2026 多多手作烘培 Duoduo Bakery. All Rights Reserved.</p>
+        <p id="footer-text"></p>
     </footer>
 
+    <!-- 複製成功提示 -->
+    <div id="copy-toast" class="copy-toast">✅ 連結已複製！</div>
+
     <div id="lightbox" class="lightbox" aria-hidden="true">
+        <button id="lightbox-prev" class="lightbox-nav lightbox-prev" type="button" aria-label="上一張">‹</button>
+        <button id="lightbox-next" class="lightbox-nav lightbox-next" type="button" aria-label="下一張">›</button>
         <div class="lightbox-content" role="dialog" aria-modal="true" aria-label="產品照片預覽">
             <button id="lightbox-close" class="lightbox-close" type="button" aria-label="關閉預覽">×</button>
             <img id="lightbox-image" src="" alt="">
@@ -98,10 +119,9 @@
         </div>
     </div>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="site-data.js"></script>
     <script src="script.js"></script>
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>AOS.init({ duration: 800, once: true });</script>
 
 </body>
 </html>

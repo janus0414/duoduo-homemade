@@ -2,11 +2,18 @@
    全域設定與奶茶色系變數
    ========================================= */
 :root {
-    --primary-color: #c48b63; /* 焦糖奶茶色 (主色調，用於按鈕和標題強調) */
-    --secondary-color: #eaddcf; /* 輕柔奶蓋色 (次要背景色) */
+    --primary-color: #b8856a; /* 紅木色 (主色調，更溫潤沉穩) */
+    --secondary-color: #f3ece4; /* 輕柔奶蓋色 (次要背景色，稍微提亮) */
     --bg-color: #fcfaf8; /* 溫暖的米白色 (網頁底色) */
     --text-color: #5c4a3d; /* 深可可色 (文字顏色，比純黑更柔和) */
+    --accent-color: #d4a574; /* 暖金色 (裝飾色) */
     --white: #ffffff;
+}
+
+/* 平滑滾動 + 預留導覽列高度避免被遮擋 */
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px;
 }
 
 * {
@@ -16,10 +23,12 @@
 }
 
 body {
-    font-family: "Helvetica Neue", Arial, "微軟正黑體", sans-serif;
+    font-family: "Noto Sans TC", "Helvetica Neue", Arial, "微軟正黑體", sans-serif;
     background-color: var(--bg-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='4' height='4' viewBox='0 0 4 4'%3E%3Cpath fill='%23d4a574' fill-opacity='0.04' d='M1 3h1v1H1V3zm2-2h1v1H3V1z'%3E%3C/path%3E%3C/svg%3E");
     color: var(--text-color);
     line-height: 1.8;
+    font-weight: 300;
 }
 
 /* =========================================
@@ -44,9 +53,10 @@ header {
     align-items: center;
     gap: 10px;
     font-size: 1.5rem;
-    font-weight: bold;
+    font-weight: 600;
     color: var(--primary-color);
-    letter-spacing: 2px;
+    letter-spacing: 3px;
+    font-family: "Noto Serif TC", serif;
 }
 
 .logo img {
@@ -65,12 +75,53 @@ nav ul {
 nav a {
     text-decoration: none;
     color: var(--text-color);
-    font-weight: bold;
+    font-weight: 500;
     transition: color 0.3s;
+    letter-spacing: 1px;
 }
 
-nav a:hover {
+nav a:hover,
+nav a.active {
     color: var(--primary-color);
+}
+
+nav a.active {
+    border-bottom: 2px solid var(--primary-color);
+    padding-bottom: 2px;
+}
+
+/* 漢堡選單 */
+.hamburger {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+    z-index: 1001;
+}
+
+.hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background-color: var(--text-color);
+    border-radius: 2px;
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+.hamburger.open span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.hamburger.open span:nth-child(2) {
+    opacity: 0;
+}
+
+.hamburger.open span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
 }
 
 /* =========================================
@@ -85,39 +136,88 @@ h2 {
     font-size: 2rem;
     color: var(--primary-color);
     margin-bottom: 30px;
+    font-family: "Noto Serif TC", serif;
+    font-weight: 600;
+    letter-spacing: 2px;
 }
 
 h2::after {
     content: '';
     display: block;
-    width: 50px;
-    height: 3px;
-    background-color: var(--primary-color);
-    margin: 10px auto 0;
+    width: 60px;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--accent-color), var(--primary-color), var(--accent-color), transparent);
+    margin: 12px auto 0;
+    border-radius: 2px;
 }
 
 /* =========================================
    首頁橫幅 (Hero)
    ========================================= */
 #hero {
-    /* 這裡放了一張充滿烘焙氛圍的背景圖，並加上半透明遮罩讓文字清楚 */
-    background: linear-gradient(rgba(92, 74, 61, 0.6), rgba(92, 74, 61, 0.6)), 
+    /* 這裡放了一張充滿烘焙氛圍的背景圖，並加上漸層過渡讓文字清楚 */
+    background: linear-gradient(to bottom, rgba(92, 74, 61, 0.3) 0%, rgba(92, 74, 61, 0.55) 50%, rgba(92, 74, 61, 0.7) 100%), 
                 url('images/Main.jpg') center/cover no-repeat;
-    height: 70vh;
+    height: 80vh;
     display: flex;
     align-items: center;
     justify-content: center;
     color: var(--white);
+    position: relative;
+}
+
+#hero::after {
+    content: '';
+    position: absolute;
+    bottom: -1px;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 60'%3E%3Cpath fill='%23f3ece4' d='M0,30 C360,60 720,0 1080,30 C1260,45 1380,40 1440,30 L1440,60 L0,60 Z'/%3E%3C/svg%3E") no-repeat bottom center;
+    background-size: 100% 100%;
 }
 
 .hero-content h1 {
     font-size: 3rem;
     margin-bottom: 15px;
-    letter-spacing: 2px;
+    letter-spacing: 4px;
+    font-family: "Noto Serif TC", serif;
+    font-weight: 700;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeIn 1s ease-out 0.3s forwards;
 }
 
-.hero-content p {
+.hero-tagline {
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1rem;
+    font-weight: 400;
+    letter-spacing: 4px;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: heroFadeIn 0.8s ease-out 0s forwards;
+    margin-bottom: 12px;
+    color: rgba(255,255,255,0.8);
+}
+
+.hero-content p:not(.hero-tagline) {
     font-size: 1.2rem;
+    font-family: "Cormorant Garamond", "Noto Serif TC", serif;
+    font-weight: 400;
+    letter-spacing: 1px;
+    font-style: italic;
+    text-shadow: 0 1px 10px rgba(0,0,0,0.3);
+    opacity: 0;
+    transform: translateY(20px);
+    animation: heroFadeIn 1s ease-out 0.6s forwards;
+}
+
+@keyframes heroFadeIn {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 /* =========================================
@@ -125,16 +225,61 @@ h2::after {
    ========================================= */
 #about {
     background-color: var(--secondary-color);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%23d4a574' fill-opacity='0.03'%3E%3Cpath d='M0 0h40v40H0V0zm40 40h40v40H40V40z'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+#about-content {
+    max-width: 720px;
+    margin: 0 auto;
+    position: relative;
+    padding: 30px 40px;
+}
+
+#about-content::before {
+    content: '\201C';
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 6rem;
+    color: var(--accent-color);
+    opacity: 0.4;
+    position: absolute;
+    top: -20px;
+    left: 0px;
+    line-height: 1;
+}
+
+#about-content::after {
+    content: '\201D';
+    font-family: "Cormorant Garamond", Georgia, serif;
+    font-size: 6rem;
+    color: var(--accent-color);
+    opacity: 0.4;
+    position: absolute;
+    bottom: -40px;
+    right: 0px;
+    line-height: 1;
 }
 
 #about p {
     max-width: 800px;
-    margin: 0 auto 15px auto;
-    font-size: 1.1rem;
+    margin: 0 auto 18px auto;
+    font-size: 1.05rem;
+    line-height: 2;
+    text-align: left;
+}
+
+#about p:first-child {
+    font-size: 1.2rem;
+    font-family: "Noto Serif TC", serif;
+    font-weight: 400;
+    color: var(--primary-color);
+    line-height: 2;
+    border-bottom: 1px solid var(--accent-color);
+    padding-bottom: 18px;
+    margin-bottom: 22px;
 }
 
 /* =========================================
-   甜點目錄 (Menu & Grid)
+   作品集 (Menu & Grid)
    ========================================= */
 .notice {
     color: #d9534f;
@@ -159,17 +304,20 @@ h2::after {
 }
 
 .product-card {
+    position: relative;
     background-color: var(--white);
     border-radius: 12px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    transition: transform 0.3s;
+    transition: transform 0.3s, box-shadow 0.3s;
     text-align: left;
     padding-bottom: 20px;
+    border-top: 3px solid var(--accent-color);
 }
 
 .product-card:hover {
-    transform: translateY(-10px); /* 滑鼠游標移過去時會有微微浮起的動畫 */
+    transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(184, 133, 106, 0.15);
 }
 
 .category-card {
@@ -184,12 +332,30 @@ h2::after {
 .product-card img {
     width: 100%;
     height: 250px;
-    object-fit: cover; /* 讓圖片填滿且不變形 */
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+    display: block;
+    background-color: var(--secondary-color);
+    background-image: linear-gradient(90deg, var(--secondary-color) 25%, #efe8e0 50%, var(--secondary-color) 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+}
+
+.product-card img.loaded {
+    animation: none;
+    background: none;
+}
+
+@keyframes skeleton {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
 }
 
 .product-card h3 {
     padding: 15px 20px 5px;
     color: var(--text-color);
+    font-family: "Noto Serif TC", serif;
+    font-weight: 600;
 }
 
 .product-card p {
@@ -208,6 +374,18 @@ h2::after {
 
 #catalog-details {
     background-color: var(--secondary-color);
+    position: relative;
+}
+
+#catalog-details::before {
+    content: '';
+    position: absolute;
+    top: -1px;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 40'%3E%3Cpath fill='%23fcfaf8' d='M0,20 C480,40 960,0 1440,20 L1440,0 L0,0 Z'/%3E%3C/svg%3E") no-repeat top center;
+    background-size: 100% 100%;
 }
 
 .category-panel {
@@ -227,11 +405,18 @@ h2::after {
 }
 
 .detail-card {
+    position: relative;
     background-color: var(--white);
     border-radius: 12px;
-    overflow: hidden;
+    overflow: visible;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
     text-align: left;
+    border-top: 3px solid var(--accent-color);
+    transition: box-shadow 0.3s;
+}
+
+.detail-card:hover {
+    box-shadow: 0 8px 25px rgba(184, 133, 106, 0.12);
 }
 
 .detail-card img {
@@ -239,11 +424,24 @@ h2::after {
     height: 220px;
     object-fit: cover;
     cursor: zoom-in;
+    border-radius: 12px 12px 0 0;
+    display: block;
+    background-color: var(--secondary-color);
+    background-image: linear-gradient(90deg, var(--secondary-color) 25%, #efe8e0 50%, var(--secondary-color) 75%);
+    background-size: 200% 100%;
+    animation: skeleton 1.5s ease-in-out infinite;
+}
+
+.detail-card img.loaded {
+    animation: none;
+    background: none;
 }
 
 .detail-card h3 {
     padding: 14px 18px 6px;
     color: var(--text-color);
+    font-family: "Noto Serif TC", serif;
+    font-weight: 600;
 }
 
 .detail-card p {
@@ -281,13 +479,22 @@ h2::after {
     background-color: var(--white);
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-    padding: 20px;
+    padding: 24px;
     text-align: left;
+    border-left: 3px solid var(--accent-color);
+    transition: box-shadow 0.3s, transform 0.3s;
+}
+
+.trust-card:hover {
+    box-shadow: 0 8px 20px rgba(184, 133, 106, 0.12);
+    transform: translateY(-3px);
 }
 
 .trust-card h3 {
     margin-bottom: 8px;
     color: var(--text-color);
+    font-family: "Noto Serif TC", serif;
+    font-weight: 600;
 }
 
 .trust-card p {
@@ -309,6 +516,10 @@ h2::after {
     display: flex;
 }
 
+body.lightbox-open {
+    overflow: hidden;
+}
+
 .lightbox-content {
     position: relative;
     width: min(900px, 100%);
@@ -327,6 +538,41 @@ h2::after {
     line-height: 1;
     color: var(--text-color);
     cursor: pointer;
+}
+
+/* Lightbox 導航箭頭 */
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 3rem;
+    color: rgba(255, 255, 255, 0.7);
+    cursor: pointer;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s, transform 0.15s;
+    z-index: 2010;
+    line-height: 1;
+    padding: 0;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+}
+
+.lightbox-nav:hover {
+    color: rgba(255, 255, 255, 1);
+    transform: translateY(-50%) scale(1.15);
+}
+
+.lightbox-prev {
+    left: 16px;
+}
+
+.lightbox-next {
+    right: 16px;
 }
 
 #lightbox-image {
@@ -352,6 +598,7 @@ h2::after {
     padding: 30px;
     border-radius: 12px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+    border-top: 3px solid var(--accent-color);
 }
 
 .contact-methods p {
@@ -463,30 +710,193 @@ h2::after {
 }
 
 /* =========================================
+   分享圖示與彈出選單
+   ========================================= */
+.share-icon-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.45);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    transition: background-color 0.2s, transform 0.15s;
+}
+
+.share-icon-btn:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+.share-icon-btn:active {
+    transform: scale(0.9);
+}
+
+.share-icon-btn svg {
+    width: 18px;
+    height: 18px;
+    fill: #ffffff;
+}
+
+/* 分享選單 */
+.share-menu {
+    position: absolute;
+    top: 50px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 24px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+    padding: 6px 10px;
+    z-index: 20;
+    display: none;
+    animation: shareMenuIn 0.15s ease-out;
+}
+
+.share-menu.open {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+@keyframes shareMenuIn {
+    from { opacity: 0; transform: translateY(-6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.share-menu-item {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.15s;
+    padding: 0;
+    flex-shrink: 0;
+}
+
+.share-menu-item:hover {
+    transform: scale(1.12);
+}
+
+.share-menu-item:active {
+    transform: scale(0.95);
+}
+
+.share-menu-item[data-action="line"] {
+    background-color: #06C755;
+}
+
+.share-menu-item[data-action="fb"] {
+    background-color: #1877F2;
+}
+
+.share-menu-item[data-action="copy"] {
+    background-color: #888;
+}
+
+.share-menu-item svg {
+    width: 20px;
+    height: 20px;
+    fill: #ffffff;
+}
+
+/* 已複製提示 */
+.copy-toast {
+    position: fixed;
+    bottom: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    z-index: 99999;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.copy-toast.show {
+    opacity: 1;
+}
+
+/* =========================================
    懸浮聯絡按鈕 (FAB)
    ========================================= */
 .floating-btn {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    background-color: #00c300;
+    background-color: #7a9e7e;
     color: var(--white);
     text-decoration: none;
     font-weight: bold;
     font-size: 1rem;
     padding: 14px 24px;
     border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(0, 195, 0, 0.35);
+    box-shadow: 0 4px 15px rgba(122, 158, 126, 0.35);
     z-index: 9999;
     transition: transform 0.2s, box-shadow 0.2s;
+    animation: pulse 2.5s ease-in-out infinite;
 }
 
 .floating-btn:hover {
-    box-shadow: 0 6px 20px rgba(0, 195, 0, 0.45);
+    box-shadow: 0 6px 20px rgba(122, 158, 126, 0.5);
+    animation: none;
+    transform: scale(1.05);
 }
 
 .floating-btn:active {
     transform: scale(0.95);
+}
+
+@keyframes pulse {
+    0%, 100% { box-shadow: 0 4px 15px rgba(122, 158, 126, 0.35); }
+    50% { box-shadow: 0 4px 25px rgba(122, 158, 126, 0.55); }
+}
+
+/* =========================================
+   返回頂部按鈕
+   ========================================= */
+.back-to-top {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: 50%;
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-size: 1.3rem;
+    cursor: pointer;
+    z-index: 9999;
+    opacity: 0;
+    transform: translateY(20px);
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
+}
+
+.back-to-top.visible {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.back-to-top:hover {
+    background-color: var(--accent-color);
 }
 
 /* =========================================
@@ -498,16 +908,56 @@ footer {
     text-align: center;
     padding: 20px 0;
     font-size: 0.9rem;
+    font-family: "Cormorant Garamond", "Noto Sans TC", sans-serif;
+    letter-spacing: 1px;
 }
+
+
 
 /* =========================================
    RWD 響應式設計 (平板)
    ========================================= */
 @media (max-width: 768px) {
     header {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 0;
         padding: 12px 5%;
+    }
+
+    .hamburger {
+        display: flex;
+    }
+
+    #main-nav {
+        display: none;
+        width: 100%;
+        padding-top: 10px;
+    }
+
+    #main-nav.open {
+        display: block;
+    }
+
+    #main-nav ul {
+        flex-direction: column;
+        gap: 0;
+        text-align: center;
+    }
+
+    #main-nav ul li {
+        border-top: 1px solid var(--secondary-color);
+    }
+
+    #main-nav ul li a {
+        display: block;
+        padding: 12px 0;
+    }
+
+    nav a.active {
+        border-bottom: none;
+        color: var(--primary-color);
+        font-weight: 700;
     }
 
     .logo {
@@ -516,12 +966,6 @@ footer {
 
     .logo img {
         height: 38px;
-    }
-
-    nav ul {
-        gap: 15px;
-        flex-wrap: wrap;
-        justify-content: center;
     }
 
     section {
@@ -551,8 +995,45 @@ footer {
         font-size: 1.05rem;
     }
 
+    .hero-tagline {
+        font-size: 0.9rem;
+        letter-spacing: 3px;
+    }
+
+    .lightbox-prev {
+        left: 8px;
+    }
+
+    .lightbox-next {
+        right: 8px;
+    }
+
+    .lightbox-nav {
+        width: 40px;
+        height: 40px;
+        font-size: 2.5rem;
+    }
+
+    #about-content {
+        padding: 20px 25px;
+    }
+
+    #about-content::before {
+        font-size: 4rem;
+        top: -10px;
+    }
+
+    #about-content::after {
+        font-size: 4rem;
+        bottom: -25px;
+    }
+
     #about p {
         font-size: 1rem;
+    }
+
+    #about p:first-child {
+        font-size: 1.1rem;
     }
 
     .product-grid {
@@ -595,7 +1076,7 @@ footer {
 @media (max-width: 480px) {
     header {
         padding: 10px 4%;
-        gap: 8px;
+        gap: 0;
     }
 
     .logo {
@@ -605,11 +1086,6 @@ footer {
 
     .logo img {
         height: 32px;
-    }
-
-    nav ul {
-        gap: 12px;
-        font-size: 0.9rem;
     }
 
     section {
@@ -638,8 +1114,45 @@ footer {
         font-size: 0.95rem;
     }
 
+    .hero-tagline {
+        font-size: 0.8rem;
+        letter-spacing: 2px;
+    }
+
+    .lightbox-prev {
+        left: 4px;
+    }
+
+    .lightbox-next {
+        right: 4px;
+    }
+
+    .lightbox-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 2rem;
+    }
+
+    #about-content {
+        padding: 15px 20px;
+    }
+
+    #about-content::before {
+        font-size: 3.5rem;
+        top: -8px;
+    }
+
+    #about-content::after {
+        font-size: 3.5rem;
+        bottom: -20px;
+    }
+
     #about p {
         font-size: 0.95rem;
+    }
+
+    #about p:first-child {
+        font-size: 1.05rem;
     }
 
     .product-grid {

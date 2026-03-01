@@ -56,7 +56,7 @@ const CATEGORIES = [
 
 window.siteDataRemote = {
     enabled: true,
-    url: 'https://script.google.com/macros/s/AKfycby1mAsAg2BJmBC3ZpxepWLY1zuoydhcG2fAPimNLYq9mKVEzK7THyNBBJiYlRoRuv0/exec',
+    url: 'https://script.google.com/macros/s/AKfycbzq8KpEZE09RvG_yNWMNKZcwguLPtWPhblR2yEO-woQzNhbGuMdqRCO0LRgwXOKLp53/exec',
     timeoutMs: 8000
 };
 
@@ -75,6 +75,8 @@ window.siteData = {
         logoAlt: '多多手作烘培',
         heroTitle: '用純粹的食材，烘焙真實的溫暖',
         heroSubtitle: '每一份甜點，都是專屬您的等待',
+        heroTagline: '— Handmade with love —',
+        heroImage: 'images/Main.jpg',
         aboutTitle: '關於多多',
         aboutParagraphs: [
             '曾經我是護理師和醫美師，守護大家的健康和美麗。現在，我用雙手在麵粉、奶油和雞蛋裡揉製幸福，沉醉在甜點的世界裡。',
@@ -83,7 +85,7 @@ window.siteData = {
         ]
     },
     menu: {
-        title: '甜點目錄',
+        title: '作品集',
         noticeHtml: '※ 所有甜點皆為<b>聯絡後接單製作</b>，以確保最高品質與新鮮度 ※',
         tip: '點擊下方分類可查看更多品項與照片',
         defaultCategory: 'pineapple',
@@ -111,5 +113,9 @@ window.siteData = {
             { label: 'Instagram 聯繫訂購', url: '#' }
         ]
     },
-    footerText: '© 2026 多多手作烘培 Duoduo Bakery. All Rights Reserved.'
+    footerText: '© 2026 多多手作烘培 Duoduo Bakery. All Rights Reserved.',
+    floatingBtn: {
+        label: '💬 Line 預約',
+        url: '#'
+    }
 };
