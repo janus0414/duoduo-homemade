@@ -62,21 +62,21 @@ window.siteDataRemote = {
 
 window.siteData = {
     seo: {
-        title: '多多手作烘培 | 手作果乾與花禮',
-        description: '多多手作烘培提供手作果乾與鳳梨花禮，清楚標價、接單製作，歡迎聯繫訂購。',
-        keywords: '多多手作烘培,果乾,鳳梨乾,蘋果乾,鳳梨花禮,手作甜點,聯繫訂購',
-        ogTitle: '多多手作烘培｜手作果乾與花禮',
+        title: '多多手作 | 手作果乾與花禮',
+        description: '多多手作提供手作果乾與鳳梨花禮，清楚標價、接單製作，歡迎聯繫訂購。',
+        keywords: '多多手作,果乾,鳳梨乾,蘋果乾,鳳梨花禮,手作甜點,聯繫訂購',
+        ogTitle: '多多手作｜手作果乾與花禮',
         ogDescription: '查看最新品項、價格與照片，歡迎透過 Line 或 Instagram 聯繫訂購。',
-        ogImage: 'images/Main.jpg'
+        ogImage: 'https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335986/Main_cz7xuz.jpg'
     },
     brand: {
-        name: '多多手作烘培',
-        logoImage: 'images/Logo.jpg',
-        logoAlt: '多多手作烘培',
+        name: '多多手作',
+        logoImage: 'https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335985/Logo_w3z3jv.jpg',
+        logoAlt: '多多手作',
         heroTitle: '用純粹的食材，烘焙真實的溫暖',
         heroSubtitle: '每一份甜點，都是專屬您的等待',
-        heroTagline: '— Handmade with love —',
-        heroImage: 'images/Main.jpg',
+        heroTagline: '',
+        heroImage: 'https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335986/Main_cz7xuz.jpg',
         aboutTitle: '關於多多',
         aboutParagraphs: [
             '曾經我是護理師和醫美師，守護大家的健康和美麗。現在，我用雙手在麵粉、奶油和雞蛋裡揉製幸福，沉醉在甜點的世界裡。',
@@ -109,13 +109,13 @@ window.siteData = {
             'Step 3：完成付款後，即為您安排製作。'
         ],
         contacts: [
-            { label: 'Line 聯繫訂購', url: '#' },
-            { label: 'Instagram 聯繫訂購', url: '#' }
+            { label: 'Line 聯繫訂購', url: 'https://line.me/ti/p/你的LineID' },
+            { label: 'Instagram 聯繫訂購', url: 'https://www.instagram.com/你的IG帳號' }
         ]
     },
-    footerText: '© 2026 多多手作烘培 Duoduo Bakery. All Rights Reserved.',
+    footerText: '© 2026 多多手作 Duoduo Homemade. All Rights Reserved.',
     floatingBtn: {
-        label: '💬 Line 預約',
-        url: '#'
+        label: 'Line 預約',
+        url: 'https://line.me/ti/p/你的LineID'
     }
 };

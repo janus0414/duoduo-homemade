@@ -8,6 +8,9 @@
     --text-color: #5c4a3d; /* 深可可色 (文字顏色，比純黑更柔和) */
     --accent-color: #d4a574; /* 暖金色 (裝飾色) */
     --white: #ffffff;
+    --fab-line-color: #90A955;
+    --fab-shadow: 0 10px 24px rgba(80, 64, 52, 0.2);
+    --fab-border: 1px solid rgba(255, 255, 255, 0.35);
 }
 
 /* 平滑滾動 + 預留導覽列高度避免被遮擋 */
@@ -834,76 +837,51 @@ body.lightbox-open {
 /* =========================================
    懸浮聯絡按鈕 (FAB)
    ========================================= */
-.floating-btn {
+.fab-group {
     position: fixed;
     right: 16px;
-    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
-    width: 66px;
-    height: 66px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    z-index: 9999;
+}
+
+.fab-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.floating-btn {
+    width: 74px;
+    min-height: 56px;
     padding: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
     white-space: normal;
-    background-color: rgba(122, 158, 126, 0.72);
+    background-color: rgba(144, 169, 85, 0.88);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.35);
+    border: var(--fab-border);
     color: var(--white);
     text-decoration: none;
-    font-weight: bold;
-    font-size: 0.95rem;
+    font-weight: 700;
+    font-size: 0.88rem;
     line-height: 1.2;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(52, 41, 34, 0.22);
-    z-index: 9999;
-    transition: transform 0.2s, box-shadow 0.2s;
+    border-radius: 58% 42% 52% 48% / 46% 62% 38% 54%;
+    box-shadow: var(--fab-shadow);
+    transition: transform 0.24s ease, border-radius 0.24s ease, box-shadow 0.24s ease;
+    min-width: 44px;
 }
 
 .floating-btn:hover {
-    box-shadow: 0 8px 22px rgba(52, 41, 34, 0.3);
-    transform: translateY(-2px);
+    box-shadow: 0 12px 28px rgba(80, 64, 52, 0.26);
+    transform: translateY(-2px) scale(1.04);
+    border-radius: 44% 56% 38% 62% / 58% 41% 59% 42%;
 }
 
 .floating-btn:active {
-    transform: translateY(0);
-}
-
-/* =========================================
-   返回頂部按鈕
-   ========================================= */
-.back-to-top {
-    position: fixed;
-    right: 16px;
-    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
-    width: 40px;
-    height: 40px;
-    border: none;
-    border-radius: 12px;
-    background-color: rgba(184, 133, 106, 0.72);
-    backdrop-filter: blur(6px);
-    -webkit-backdrop-filter: blur(6px);
-    border: 1px solid rgba(255, 255, 255, 0.32);
-    color: var(--white);
-    font-size: 1rem;
-    cursor: pointer;
-    z-index: 9999;
-    opacity: 0;
-    transform: translateY(20px);
-    pointer-events: none;
-    transition: opacity 0.3s, transform 0.3s, background-color 0.3s;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.12);
-}
-
-.back-to-top.visible {
-    opacity: 1;
-    transform: translateY(0);
-    pointer-events: auto;
-}
-
-.back-to-top:hover {
-    background-color: rgba(212, 165, 116, 0.8);
+    transform: translateY(0) scale(0.98);
 }
 
 /* =========================================
@@ -1080,22 +1058,15 @@ footer {
         font-size: 1rem;
     }
 
-    .floating-btn {
-        width: 60px;
-        height: 60px;
-        right: 12px;
-        bottom: calc(70px + env(safe-area-inset-bottom, 0px));
-        font-size: 0.86rem;
-        border-radius: 12px;
-    }
-
-    .back-to-top {
-        width: 36px;
-        height: 36px;
+    .fab-group {
         right: 12px;
         bottom: calc(12px + env(safe-area-inset-bottom, 0px));
-        border-radius: 10px;
-        font-size: 0.9rem;
+    }
+
+    .floating-btn {
+        width: 68px;
+        min-height: 52px;
+        font-size: 0.84rem;
     }
 }
 
@@ -1272,22 +1243,15 @@ footer {
         font-size: 0.95rem;
     }
 
-    .floating-btn {
-        width: 56px;
-        height: 56px;
-        right: 10px;
-        bottom: calc(66px + env(safe-area-inset-bottom, 0px));
-        font-size: 0.8rem;
-        border-radius: 10px;
-    }
-
-    .back-to-top {
-        width: 34px;
-        height: 34px;
+    .fab-group {
         right: 10px;
         bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-        border-radius: 10px;
-        font-size: 0.85rem;
+    }
+
+    .floating-btn {
+        width: 64px;
+        min-height: 50px;
+        font-size: 0.78rem;
     }
 
     footer {

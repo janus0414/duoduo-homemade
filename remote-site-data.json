@@ -1,0 +1,207 @@
+﻿{
+    "seo":  {
+                "title":  "多多手作 | 手作果乾與花禮",
+                "description":  "多多手作提供手作果乾與鳳梨花禮，清楚標價、接單製作，歡迎聯繫訂購。",
+                "keywords":  "多多手作,果乾,鳳梨乾,蘋果乾,鳳梨花禮,手作甜點,聯繫訂購",
+                "ogTitle":  "多多手作｜手作果乾與花禮",
+                "ogDescription":  "查看最新品項、價格與照片，歡迎透過 Line 或 Instagram 聯繫訂購。",
+                "ogImage":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335986/Main_cz7xuz.jpg"
+            },
+    "brand":  {
+                  "name":  "多多手作",
+                  "logoImage":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335985/Logo_w3z3jv.jpg",
+                  "logoAlt":  "多多手作",
+                  "heroTitle":  "用純粹的食材，烘焙真實的溫暖",
+                  "heroSubtitle":  "每一份甜點，都是專屬您的等待",
+                  "heroTagline":  "",
+                  "heroImage":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772335986/Main_cz7xuz.jpg",
+                  "aboutTitle":  "關於多多",
+                  "aboutParagraphs":  [
+                                          "曾經我是護理師和醫美師，守護大家的健康和美麗。現在，我用雙手在麵粉、奶油和雞蛋裡揉製幸福，沉醉在甜點的世界裡。",
+                                          "烘焙對我來說不只是興趣，更是療癒身心的小魔法，每一口甜點都藏著我的用心與溫暖！",
+                                          "我喜歡把甜點變得有趣又驚喜，想讓你一吃就笑出來！希望我的手作點心能為你的生活加點糖，添些笑容，看到大家開心地吃著，就是我最幸福的時刻！"
+                                      ]
+              },
+    "menu":  {
+                 "title":  "作品集",
+                 "noticeHtml":  "※ 所有甜點皆為\u003cb\u003e聯絡後接單製作\u003c/b\u003e，以確保最高品質與新鮮度 ※",
+                 "tip":  "點擊下方分類可查看更多品項與照片",
+                 "defaultCategory":  "pineapple",
+                 "categories":  [
+                                    {
+                                        "id":  "pineapple",
+                                        "name":  "鳳梨乾系列",
+                                        "coverImage":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336230/P02_c3sdp6.jpg",
+                                        "coverAlt":  "胭脂鳳梨乾",
+                                        "summary":  "塗上新鮮火龍果醬，呈現漸層花色，豐富口感與視覺享受。",
+                                        "items":  [
+                                                      {
+                                                          "name":  "胭脂鳳梨乾・經典款",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336231/P17_bzf7aa.jpg",
+                                                          "alt":  "胭脂鳳梨乾經典款",
+                                                          "description":  "火龍果醬渲染出粉嫩花色，香氣酸甜平衡。",
+                                                          "price":  "單片 NT$ 30"
+                                                      },
+                                                      {
+                                                          "name":  "胭脂鳳梨乾・繽紛款",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336230/P03_iykco1.jpg",
+                                                          "alt":  "胭脂鳳梨乾繽紛款",
+                                                          "description":  "色彩更飽滿，適合送禮或派對擺盤。",
+                                                          "price":  "單片 NT$ 35"
+                                                      },
+                                                      {
+                                                          "name":  "胭脂鳳梨乾・禮盒款",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336248/P20_xugntk.jpg",
+                                                          "alt":  "胭脂鳳梨乾禮盒款",
+                                                          "description":  "多片組合包裝，分享與自用都很剛好。",
+                                                          "price":  "禮盒 NT$ 420"
+                                                      },
+                                                      {
+                                                          "name":  "胭脂鳳梨乾・禮盒款",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336230/P15_fvzmxw.jpg",
+                                                          "alt":  "胭脂鳳梨乾禮盒款",
+                                                          "description":  "多片組合包裝，分享與自用都很剛好。",
+                                                          "price":  "禮盒 NT$ 420"
+                                                      }
+                                                  ]
+                                    },
+                                    {
+                                        "id":  "apple",
+                                        "name":  "其他果乾系列",
+                                        "coverImage":  "images/P04.jpg",
+                                        "coverAlt":  "甜甜圈蘋果乾",
+                                        "summary":  "去皮去籽淡淡的蘋果味。",
+                                        "items":  [
+                                                      {
+                                                          "name":  "甜甜圈蘋果乾・原味",
+                                                          "image":  "images/P04.jpg",
+                                                          "alt":  "甜甜圈蘋果乾原味",
+                                                          "description":  "保留蘋果自然香甜，口感清爽不膩口。",
+                                                          "price":  "單片 NT$ 20"
+                                                      },
+                                                      {
+                                                          "name":  "甜甜圈蘋果乾・薄脆款",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772337074/DPP-1780_pi3hbp.jpg",
+                                                          "alt":  "甜甜圈蘋果乾薄脆款",
+                                                          "description":  "較薄切片，酥脆輕盈，適合下午茶。",
+                                                          "price":  "單片 NT$ 22"
+                                                      }
+                                                  ]
+                                    },
+                                    {
+                                        "id":  "floral",
+                                        "name":  "永生花束系列",
+                                        "coverImage":  "images/P05.jpg",
+                                        "coverAlt":  "鳳語花時",
+                                        "summary":  "鳳梨乾與永生花、棉花結合，展現了一種酸甜永恆的質感。",
+                                        "items":  [
+                                                      {
+                                                          "name":  "鳳語花時・經典束",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336263/P13_onpnkr.jpg",
+                                                          "alt":  "鳳語花時經典束",
+                                                          "description":  "鳳梨乾與永生花搭配，帶有儀式感與故事性。",
+                                                          "price":  "1束 NT$ 1720"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・暖色系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336262/P07_gus88j.jpg",
+                                                          "alt":  "鳳語花時暖色系",
+                                                          "description":  "柔和暖色調設計，適合節慶與紀念日。",
+                                                          "price":  "1束 NT$ 1880"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336261/P12_hcs3bb.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1980"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336260/P11_zinfdd.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1981"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336259/P09_ik1uaj.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1982"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336259/P10_qnpnwq.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1983"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336259/P08_lvlmpm.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1984"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336258/P06_yhsfuz.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1985"
+                                                      },
+                                                      {
+                                                          "name":  "鳳語花時・粉紫系",
+                                                          "image":  "https://res.cloudinary.com/dztmtyiuh/image/upload/v1772336258/P05_gm1krz.jpg",
+                                                          "alt":  "鳳語花時粉紫系",
+                                                          "description":  "浪漫粉紫配色，作為禮物更具心意。",
+                                                          "price":  "1束 NT$ 1986"
+                                                      }
+                                                  ]
+                                    }
+                                ]
+             },
+    "trust":  {
+                  "title":  "安心資訊",
+                  "intro":  "以下資訊可直接在這份資料檔更新，網站會同步顯示。",
+                  "items":  [
+                                {
+                                    "title":  "保存方式",
+                                    "content":  "果乾請置於陰涼乾燥處，開封後建議冷藏保存並盡早食用。"
+                                },
+                                {
+                                    "title":  "最佳賞味期限",
+                                    "content":  "未開封建議 30 天內食用完畢，實際日期依包裝標示為準。"
+                                },
+                                {
+                                    "title":  "過敏原提醒",
+                                    "content":  "本工作室有使用水果、堅果及乳製品製程，對特定食材過敏者請先告知。"
+                                }
+                            ]
+              },
+    "order":  {
+                  "title":  "如何訂購",
+                  "intro":  "為了給您最好的品質，所有甜點請提前至少 3 個工作天預約。",
+                  "steps":  [
+                                "Step 1：瀏覽上方目錄選擇喜歡的品項。",
+                                "Step 2：透過下方管道聯繫訂購，確認檔期與細節。",
+                                "Step 3：完成付款後，即為您安排製作。"
+                            ],
+                  "contacts":  [
+                                   {
+                                       "label":  "Line 聯繫訂購",
+                                       "url":  "https://line.me/ti/p/你的LineID"
+                                   },
+                                   {
+                                       "label":  "Instagram 聯繫訂購",
+                                       "url":  "https://www.instagram.com/你的IG帳號"
+                                   }
+                               ]
+              },
+    "footerText":  "© 2026 多多手作 Duoduo Homemade. All Rights Reserved.",
+    "floatingBtn":  {
+                        "label":  "Line 預約",
+                        "url":  "https://line.me/ti/p/你的LineID"
+                    }
+}

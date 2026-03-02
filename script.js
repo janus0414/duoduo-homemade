@@ -1,6 +1,70 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const localSiteData = window.siteData;
     const remoteConfig = window.siteDataRemote;
+    const SEO_CACHE_KEY = 'duoduo-seo-cache-v1';
+
+    const setMetaContent = (id, value) => {
+        const element = document.getElementById(id);
+        if (element && value) {
+            element.setAttribute('content', value);
+        }
+    };
+
+    const applySeoSnapshot = (seo) => {
+        if (!seo) {
+            return;
+        }
+
+        if (seo.title) {
+            document.title = seo.title;
+        }
+
+        setMetaContent('meta-description', seo.description);
+        setMetaContent('meta-keywords', seo.keywords);
+        setMetaContent('meta-og-title', seo.ogTitle);
+        setMetaContent('meta-og-description', seo.ogDescription);
+
+        if (seo.ogImage) {
+            const ogImageEl = document.getElementById('meta-og-image');
+            if (ogImageEl) {
+                const absoluteImageUrl = seo.ogImage.startsWith('http')
+                    ? seo.ogImage
+                    : new URL(seo.ogImage, window.location.href).href;
+                ogImageEl.setAttribute('content', absoluteImageUrl);
+            }
+        }
+
+        const ogUrlEl = document.getElementById('meta-og-url');
+        if (ogUrlEl) {
+            ogUrlEl.setAttribute('content', window.location.href.split('#')[0]);
+        }
+    };
+
+    const readCachedSeo = () => {
+        try {
+            const raw = localStorage.getItem(SEO_CACHE_KEY);
+            if (!raw) {
+                return null;
+            }
+
+            const parsed = JSON.parse(raw);
+            return parsed && typeof parsed === 'object' ? parsed : null;
+        } catch (error) {
+            return null;
+        }
+    };
+
+    const persistSeoCache = (seo) => {
+        if (!seo) {
+            return;
+        }
+
+        try {
+            localStorage.setItem(SEO_CACHE_KEY, JSON.stringify(seo));
+        } catch (error) {
+            // ignore localStorage write errors
+        }
+    };
 
     const isCompleteSiteData = (data) => {
         return Boolean(data?.menu && Array.isArray(data.menu.categories));
@@ -54,6 +118,11 @@ document.addEventListener('DOMContentLoaded', async () => {
     const loadingOverlay = document.getElementById('loading-overlay');
     const errorOverlay = document.getElementById('error-overlay');
 
+    const cachedSeo = readCachedSeo();
+    if (cachedSeo) {
+        applySeoSnapshot(cachedSeo);
+    }
+
     const remoteSiteData = await fetchRemoteSiteData();
 
     const siteData = remoteSiteData || localSiteData;
@@ -75,38 +144,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
 
-        if (seo.title) {
-            document.title = seo.title;
-        }
-
-        const setMetaContent = (id, value) => {
-            const element = document.getElementById(id);
-            if (element && value) {
-                element.setAttribute('content', value);
-            }
-        };
-
-        setMetaContent('meta-description', seo.description);
-        setMetaContent('meta-keywords', seo.keywords);
-        setMetaContent('meta-og-title', seo.ogTitle);
-        setMetaContent('meta-og-description', seo.ogDescription);
-
-        // og:image 必須是絕對路徑，FB 爬蟲才能正確抓取
-        if (seo.ogImage) {
-            const ogImageEl = document.getElementById('meta-og-image');
-            if (ogImageEl) {
-                const absoluteImageUrl = seo.ogImage.startsWith('http')
-                    ? seo.ogImage
-                    : new URL(seo.ogImage, window.location.href).href;
-                ogImageEl.setAttribute('content', absoluteImageUrl);
-            }
-        }
-
-        // 同步更新 og:url
-        const ogUrlEl = document.getElementById('meta-og-url');
-        if (ogUrlEl) {
-            ogUrlEl.setAttribute('content', window.location.href.split('#')[0]);
-        }
+        applySeoSnapshot(seo);
+        persistSeoCache(seo);
     };
 
     const applyBrand = () => {
@@ -621,18 +660,6 @@ document.addEventListener('DOMContentLoaded', async () => {
                 hamburger.classList.remove('open');
                 hamburger.setAttribute('aria-expanded', 'false');
             });
-        });
-    }
-
-    // 返回頂部按鈕
-    const backToTop = document.getElementById('back-to-top');
-    if (backToTop) {
-        window.addEventListener('scroll', () => {
-            backToTop.classList.toggle('visible', window.scrollY > 400);
-        }, { passive: true });
-
-        backToTop.addEventListener('click', () => {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     }
 
