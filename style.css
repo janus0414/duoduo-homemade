@@ -836,34 +836,38 @@ body.lightbox-open {
    ========================================= */
 .floating-btn {
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background-color: #7a9e7e;
+    right: 16px;
+    bottom: calc(74px + env(safe-area-inset-bottom, 0px));
+    width: 66px;
+    height: 66px;
+    padding: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: normal;
+    background-color: rgba(122, 158, 126, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.35);
     color: var(--white);
     text-decoration: none;
     font-weight: bold;
-    font-size: 1rem;
-    padding: 14px 24px;
-    border-radius: 50px;
-    box-shadow: 0 4px 15px rgba(122, 158, 126, 0.35);
+    font-size: 0.95rem;
+    line-height: 1.2;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(52, 41, 34, 0.22);
     z-index: 9999;
     transition: transform 0.2s, box-shadow 0.2s;
-    animation: pulse 2.5s ease-in-out infinite;
 }
 
 .floating-btn:hover {
-    box-shadow: 0 6px 20px rgba(122, 158, 126, 0.5);
-    animation: none;
-    transform: scale(1.05);
+    box-shadow: 0 8px 22px rgba(52, 41, 34, 0.3);
+    transform: translateY(-2px);
 }
 
 .floating-btn:active {
-    transform: scale(0.95);
-}
-
-@keyframes pulse {
-    0%, 100% { box-shadow: 0 4px 15px rgba(122, 158, 126, 0.35); }
-    50% { box-shadow: 0 4px 25px rgba(122, 158, 126, 0.55); }
+    transform: translateY(0);
 }
 
 /* =========================================
@@ -871,15 +875,18 @@ body.lightbox-open {
    ========================================= */
 .back-to-top {
     position: fixed;
-    bottom: 20px;
-    left: 20px;
-    width: 44px;
-    height: 44px;
+    right: 16px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    width: 40px;
+    height: 40px;
     border: none;
-    border-radius: 50%;
-    background-color: var(--primary-color);
+    border-radius: 12px;
+    background-color: rgba(184, 133, 106, 0.72);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    border: 1px solid rgba(255, 255, 255, 0.32);
     color: var(--white);
-    font-size: 1.3rem;
+    font-size: 1rem;
     cursor: pointer;
     z-index: 9999;
     opacity: 0;
@@ -896,7 +903,7 @@ body.lightbox-open {
 }
 
 .back-to-top:hover {
-    background-color: var(--accent-color);
+    background-color: rgba(212, 165, 116, 0.8);
 }
 
 /* =========================================
@@ -1072,6 +1079,24 @@ footer {
     .contact-methods p {
         font-size: 1rem;
     }
+
+    .floating-btn {
+        width: 60px;
+        height: 60px;
+        right: 12px;
+        bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+        font-size: 0.86rem;
+        border-radius: 12px;
+    }
+
+    .back-to-top {
+        width: 36px;
+        height: 36px;
+        right: 12px;
+        bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+        border-radius: 10px;
+        font-size: 0.9rem;
+    }
 }
 
 /* =========================================
@@ -1245,6 +1270,24 @@ footer {
     .btn {
         padding: 10px 16px;
         font-size: 0.95rem;
+    }
+
+    .floating-btn {
+        width: 56px;
+        height: 56px;
+        right: 10px;
+        bottom: calc(66px + env(safe-area-inset-bottom, 0px));
+        font-size: 0.8rem;
+        border-radius: 10px;
+    }
+
+    .back-to-top {
+        width: 34px;
+        height: 34px;
+        right: 10px;
+        bottom: calc(10px + env(safe-area-inset-bottom, 0px));
+        border-radius: 10px;
+        font-size: 0.85rem;
     }
 
     footer {
