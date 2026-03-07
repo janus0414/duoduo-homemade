@@ -177,7 +177,7 @@ window.siteData = {
             facebook: '分享到 Facebook',
             line: '分享到 Line',
             copy: '複製連結',
-            copied: '已複製連結'
+            copied: '連結已複製！可貼上分享到 LINE 或 Facebook'
         },
         a11y: { 
             hamburger: '開啟選單',

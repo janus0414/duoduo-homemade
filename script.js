@@ -137,7 +137,7 @@
         // 更新複製提示
         const copyToast = document.getElementById('copy-toast');
         if (copyToast && ui.share?.copied) {
-            copyToast.textContent = '✅ ' + ui.share.copied;
+            copyToast.textContent = ui.share.copied;
         }
     };
 
