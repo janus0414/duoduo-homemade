@@ -1,13 +1,17 @@
-document.addEventListener('DOMContentLoaded', async () => {
+document.addEventListener('DOMContentLoaded', () => {
     const localSiteData = window.siteData;
-    const remoteConfig = window.siteDataRemote;
-    const SEO_CACHE_KEY = 'duoduo-seo-cache-v1';
 
     const setMetaContent = (id, value) => {
         const element = document.getElementById(id);
         if (element && value) {
             element.setAttribute('content', value);
         }
+    };
+
+    // 模板字符串插值工具：用於動態設置 aria-label、title 等帶變數的文案
+    const interpolateTemplate = (template, context) => {
+        if (!template) return '';
+        return template.replace(/\$\{(\w+)\}/g, (match, key) => context[key] || '');
     };
 
     const applySeoSnapshot = (seo) => {
@@ -38,94 +42,36 @@ document.addEventListener('DOMContentLoaded', async () => {
         if (ogUrlEl) {
             ogUrlEl.setAttribute('content', window.location.href.split('#')[0]);
         }
-    };
 
-    const readCachedSeo = () => {
-        try {
-            const raw = localStorage.getItem(SEO_CACHE_KEY);
-            if (!raw) {
-                return null;
+        // 設定 og:site_name
+        if (seo.siteName) {
+            const siteNameEl = document.querySelector('meta[property="og:site_name"]');
+            if (siteNameEl) {
+                siteNameEl.setAttribute('content', seo.siteName);
             }
+        }
 
-            const parsed = JSON.parse(raw);
-            return parsed && typeof parsed === 'object' ? parsed : null;
-        } catch (error) {
-            return null;
+        // 設定 og:locale
+        if (seo.locale) {
+            const localeEl = document.querySelector('meta[property="og:locale"]');
+            if (localeEl) {
+                localeEl.setAttribute('content', seo.locale);
+            }
         }
     };
 
-    const persistSeoCache = (seo) => {
-        if (!seo) {
-            return;
-        }
 
-        try {
-            localStorage.setItem(SEO_CACHE_KEY, JSON.stringify(seo));
-        } catch (error) {
-            // ignore localStorage write errors
-        }
-    };
 
     const isCompleteSiteData = (data) => {
         return Boolean(data?.menu && Array.isArray(data.menu.categories));
     };
 
-    const extractRemoteSiteData = (payload) => {
-        if (isCompleteSiteData(payload)) {
-            return payload;
-        }
 
-        if (isCompleteSiteData(payload?.data)) {
-            return payload.data;
-        }
-
-        if (isCompleteSiteData(payload?.siteData)) {
-            return payload.siteData;
-        }
-
-        return null;
-    };
-
-    const fetchRemoteSiteData = async () => {
-        if (!remoteConfig?.enabled || !remoteConfig.url) {
-            return null;
-        }
-
-        const controller = new AbortController();
-        const timeoutMs = Number(remoteConfig.timeoutMs) || 8000;
-        const timer = setTimeout(() => controller.abort(), timeoutMs);
-
-        try {
-            const response = await fetch(remoteConfig.url, {
-                method: 'GET',
-                cache: 'no-store',
-                signal: controller.signal
-            });
-
-            if (!response.ok) {
-                return null;
-            }
-
-            const payload = await response.json();
-            return extractRemoteSiteData(payload);
-        } catch (error) {
-            return null;
-        } finally {
-            clearTimeout(timer);
-        }
-    };
 
     const loadingOverlay = document.getElementById('loading-overlay');
     const errorOverlay = document.getElementById('error-overlay');
 
-    const cachedSeo = readCachedSeo();
-    if (cachedSeo) {
-        applySeoSnapshot(cachedSeo);
-    }
-
-    const remoteSiteData = await fetchRemoteSiteData();
-
-    const siteData = remoteSiteData || localSiteData;
+    const siteData = localSiteData;
 
     if (!siteData) {
         if (loadingOverlay) loadingOverlay.style.display = 'none';
@@ -145,7 +91,54 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         applySeoSnapshot(seo);
-        persistSeoCache(seo);
+    };
+
+    const applyUiText = () => {
+        const ui = siteData.ui;
+        if (!ui) {
+            return;
+        }
+
+        // 更新導航項目
+        if (ui.nav) {
+            const navLinks = document.querySelectorAll('#main-nav a');
+            if (navLinks[0] && ui.nav.about) navLinks[0].textContent = ui.nav.about;
+            if (navLinks[1] && ui.nav.menu) navLinks[1].textContent = ui.nav.menu;
+            if (navLinks[2] && ui.nav.trust) navLinks[2].textContent = ui.nav.trust;
+            if (navLinks[3] && ui.nav.order) navLinks[3].textContent = ui.nav.order;
+        }
+
+        // 更新漢堡菜單標籤
+        if (ui.a11y?.hamburger) {
+            const hamburger = document.getElementById('hamburger');
+            if (hamburger) {
+                hamburger.setAttribute('aria-label', ui.a11y.hamburger);
+            }
+        }
+
+        // 更新載入頁面提示文案（如需要）
+        const loadingText = document.querySelector('#loading-overlay p');
+        if (loadingText && ui.loading?.general) {
+            loadingText.textContent = ui.loading.general;
+        }
+
+        // 更新錯誤頁面文案
+        const errorOverlayText = document.getElementById('error-overlay');
+        if (errorOverlayText && ui.error) {
+            const errorParagraphs = errorOverlayText.querySelectorAll('p');
+            if (errorParagraphs[0] && ui.error.title) {
+                errorParagraphs[0].textContent = '⚠️ ' + ui.error.title;
+            }
+            if (errorParagraphs[1] && ui.error.message) {
+                errorParagraphs[1].textContent = ui.error.message;
+            }
+        }
+
+        // 更新複製提示
+        const copyToast = document.getElementById('copy-toast');
+        if (copyToast && ui.share?.copied) {
+            copyToast.textContent = '✅ ' + ui.share.copied;
+        }
     };
 
     const applyBrand = () => {
@@ -250,7 +243,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             card.dataset.category = category.id;
             card.tabIndex = 0;
             card.setAttribute('role', 'button');
-            card.setAttribute('aria-label', `查看${category.name}更多品項`);
+            const expandLabel = interpolateTemplate(
+                siteData.ui?.a11y?.expandCategory || '查看 ${name} 更多品項',
+                { name: category.name }
+            );
+            card.setAttribute('aria-label', expandLabel);
             card.innerHTML = `
                 <button class="share-icon-btn" type="button" aria-label="分享${category.name}" data-share-name="${category.name}" data-share-id="${category.id}">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
@@ -261,6 +258,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                 <p>${category.summary || ''}</p>
             `;
             categoryGrid.appendChild(card);
+
+            // 動態設置分類卡片分享按鈕的 aria-label
+            const categoryShareBtn = card.querySelector('.share-icon-btn');
+            if (categoryShareBtn) {
+                const categoryShareLabel = interpolateTemplate(
+                    siteData.ui?.a11y?.shareCategory || '分享 ${name}',
+                    { name: category.name }
+                );
+                categoryShareBtn.setAttribute('aria-label', categoryShareLabel);
+            }
 
             const panel = document.createElement('div');
             panel.className = 'category-panel';
@@ -286,6 +293,16 @@ document.addEventListener('DOMContentLoaded', async () => {
                         <span class="detail-price">${item.price || ''}</span>
                     `;
                     detailGrid.appendChild(detailCard);
+
+                    // 動態設置商品卡片分享按鈕的 aria-label
+                    const itemShareBtn = detailCard.querySelector('.share-icon-btn');
+                    if (itemShareBtn) {
+                        const itemShareLabel = interpolateTemplate(
+                            siteData.ui?.a11y?.shareItem || '分享 ${name}',
+                            { name: item.name }
+                        );
+                        itemShareBtn.setAttribute('aria-label', itemShareLabel);
+                    }
                 });
             }
 
@@ -448,6 +465,20 @@ document.addEventListener('DOMContentLoaded', async () => {
         const lightboxPrev = document.getElementById('lightbox-prev');
         const lightboxNext = document.getElementById('lightbox-next');
 
+        // 更新燈箱按鈕的 aria-labels
+        const ui = siteData.ui;
+        if (ui?.lightbox) {
+            if (lightboxPrev && ui.lightbox.prev) {
+                lightboxPrev.setAttribute('aria-label', ui.lightbox.prev);
+            }
+            if (lightboxNext && ui.lightbox.next) {
+                lightboxNext.setAttribute('aria-label', ui.lightbox.next);
+            }
+            if (lightboxClose && ui.lightbox.close) {
+                lightboxClose.setAttribute('aria-label', ui.lightbox.close);
+            }
+        }
+
         let imageList = [];
         let currentIndex = -1;
 
@@ -502,7 +533,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         detailImages.forEach((image) => {
             image.setAttribute('tabindex', '0');
             image.setAttribute('role', 'button');
-            image.setAttribute('aria-label', `放大查看 ${image.alt}`);
+            const viewImageLabel = interpolateTemplate(
+                siteData.ui?.a11y?.viewImage || '放大查看 ${alt}',
+                { alt: image.alt }
+            );
+            image.setAttribute('aria-label', viewImageLabel);
 
             image.addEventListener('click', () => {
                 openLightbox(image);
@@ -558,15 +593,17 @@ document.addEventListener('DOMContentLoaded', async () => {
             const shareLink = buildShareUrl(shareId);
             const encodedUrl = encodeURIComponent(shareLink);
             const encodedText = encodeURIComponent(`${shareName} — 多多手作烘培`);
+            const ui = siteData.ui || {};
+            const shareLabels = ui.share || {};
 
             menu.innerHTML = `
-                <button class="share-menu-item" data-action="line" aria-label="分享到 Line">
+                <button class="share-menu-item" data-action="line" aria-label="${shareLabels.line || '分享到 Line'}">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
                 </button>
-                <button class="share-menu-item" data-action="fb" aria-label="分享到 Facebook">
+                <button class="share-menu-item" data-action="fb" aria-label="${shareLabels.facebook || '分享到 Facebook'}">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </button>
-                <button class="share-menu-item" data-action="copy" aria-label="複製連結">
+                <button class="share-menu-item" data-action="copy" aria-label="${shareLabels.copy || '複製連結'}">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
                 </button>
             `;
@@ -635,6 +672,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     applySeo();
+    applyUiText();
     applyBrand();
     renderMenuAndDetails();
     renderTrust();
