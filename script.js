@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', () => {
+﻿document.addEventListener('DOMContentLoaded', () => {
     const localSiteData = window.siteData;
 
     const setMetaContent = (id, value) => {
@@ -202,6 +202,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    let activateCategory = null;
+
     const renderMenuAndDetails = () => {
         const menu = siteData.menu;
         if (!menu) {
@@ -252,7 +254,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button class="share-icon-btn" type="button" aria-label="分享${category.name}" data-share-name="${category.name}" data-share-id="${category.id}">
                     <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
                 </button>
-                <div class="share-menu" data-share-menu="${category.id}"></div>
                 <img src="${category.coverImage}" alt="${category.coverAlt || category.name}" loading="lazy">
                 <h3>${category.name}</h3>
                 <p>${category.summary || ''}</p>
@@ -282,11 +283,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     detailCard.className = 'detail-card';
                     const itemIndex = category.items.indexOf(item);
                     const itemShareId = `${category.id}-item-${itemIndex}`;
+                    detailCard.id = itemShareId;
                     detailCard.innerHTML = `
                         <button class="share-icon-btn" type="button" aria-label="分享${item.name}" data-share-name="${item.name}" data-share-id="${itemShareId}">
                             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/></svg>
                         </button>
-                        <div class="share-menu" data-share-menu="${itemShareId}"></div>
                         <img src="${item.image}" alt="${item.alt || item.name}" loading="lazy">
                         <h3>${item.name}</h3>
                         <p>${item.description || ''}</p>
@@ -315,7 +316,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const firstCategoryId = menu.categories[0]?.id;
         const defaultCategory = menu.defaultCategory || firstCategoryId;
 
-        const activateCategory = (categoryId) => {
+        activateCategory = (categoryId) => {
             cards.forEach((card) => {
                 const isActive = card.dataset.category === categoryId;
                 card.classList.toggle('active', isActive);
@@ -589,87 +590,30 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const buildShareUrl = (shareId) => `${baseUrl}#${shareId}`;
 
-        const populateMenu = (menu, shareId, shareName) => {
-            const shareLink = buildShareUrl(shareId);
-            const encodedUrl = encodeURIComponent(shareLink);
-            const encodedText = encodeURIComponent(`${shareName} — 多多手作烘培`);
-            const ui = siteData.ui || {};
-            const shareLabels = ui.share || {};
-
-            menu.innerHTML = `
-                <button class="share-menu-item" data-action="line" aria-label="${shareLabels.line || '分享到 Line'}">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-                </button>
-                <button class="share-menu-item" data-action="fb" aria-label="${shareLabels.facebook || '分享到 Facebook'}">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-                </button>
-                <button class="share-menu-item" data-action="copy" aria-label="${shareLabels.copy || '複製連結'}">
-                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3.9 12c0-1.71 1.39-3.1 3.1-3.1h4V7H7c-2.76 0-5 2.24-5 5s2.24 5 5 5h4v-1.9H7c-1.71 0-3.1-1.39-3.1-3.1zM8 13h8v-2H8v2zm9-6h-4v1.9h4c1.71 0 3.1 1.39 3.1 3.1s-1.39 3.1-3.1 3.1h-4V17h4c2.76 0 5-2.24 5-5s-2.24-5-5-5z"/></svg>
-                </button>
-            `;
-
-            menu.querySelectorAll('.share-menu-item').forEach((item) => {
-                item.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const action = item.dataset.action;
-
-                    if (action === 'line') {
-                        const lineUrl = `https://social-plugins.line.me/lineit/share?url=${encodedUrl}&text=${encodedText}`;
-                        window.open(lineUrl, 'line-share', 'width=580,height=500,scrollbars=yes');
-                    } else if (action === 'fb') {
-                        const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}`;
-                        window.open(fbUrl, 'fb-share', 'width=580,height=400,scrollbars=yes');
-                    } else if (action === 'copy') {
-                        navigator.clipboard.writeText(shareLink).then(() => {
-                            showToast();
-                        }).catch(() => {
-                            // fallback for older browsers
-                            const textarea = document.createElement('textarea');
-                            textarea.value = shareLink;
-                            document.body.appendChild(textarea);
-                            textarea.select();
-                            document.execCommand('copy');
-                            document.body.removeChild(textarea);
-                            showToast();
-                        });
-                    }
-
-                    menu.classList.remove('open');
-                });
-            });
-        };
-
-        // 初始化所有分享按鈕
+        // 一鍵複製連結
         document.querySelectorAll('.share-icon-btn').forEach((btn) => {
             const shareId = btn.dataset.shareId;
-            const shareName = btn.dataset.shareName;
-            const menu = btn.parentElement.querySelector(`.share-menu[data-share-menu="${shareId}"]`);
-
-            if (menu && !menu.dataset.initialized) {
-                populateMenu(menu, shareId, shareName);
-                menu.dataset.initialized = 'true';
-            }
+            const shareLink = buildShareUrl(shareId);
 
             btn.addEventListener('click', (e) => {
                 e.stopPropagation();
                 e.preventDefault();
 
-                // 關閉其他已開啟的選單
-                document.querySelectorAll('.share-menu.open').forEach((m) => {
-                    if (m !== menu) m.classList.remove('open');
+                navigator.clipboard.writeText(shareLink).then(() => {
+                    showToast();
+                }).catch(() => {
+                    const textarea = document.createElement('textarea');
+                    textarea.value = shareLink;
+                    document.body.appendChild(textarea);
+                    textarea.select();
+                    document.execCommand('copy');
+                    document.body.removeChild(textarea);
+                    showToast();
                 });
-
-                menu?.classList.toggle('open');
-            });
-        });
-
-        // 點擊其他地方關閉選單
-        document.addEventListener('click', () => {
-            document.querySelectorAll('.share-menu.open').forEach((m) => {
-                m.classList.remove('open');
             });
         });
     };
+
 
     applySeo();
     applyUiText();
@@ -681,6 +625,35 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFloatingBtn();
     setupLightbox();
     setupShareSystem();
+
+    const handleShareableUrl = () => {
+        const hash = window.location.hash.slice(1);
+        if (!hash) return;
+
+        const categories = siteData.menu?.categories || [];
+        const itemMatch = hash.match(/^(.+)-item-(\d+)$/);
+
+        if (itemMatch) {
+            const catId = itemMatch[1];
+            if (activateCategory) activateCategory(catId);
+            document.getElementById('menu')?.scrollIntoView({ behavior: 'instant' });
+            requestAnimationFrame(() => {
+                requestAnimationFrame(() => {
+                    const targetCard = document.getElementById(hash);
+                    targetCard?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+            });
+            return;
+        }
+
+        const isCategory = categories.some((c) => c.id === hash);
+        if (isCategory) {
+            if (activateCategory) activateCategory(hash);
+            document.getElementById('menu')?.scrollIntoView({ behavior: 'instant' });
+        }
+    };
+
+    handleShareableUrl();
 
     // 漢堡選單
     const hamburger = document.getElementById('hamburger');
