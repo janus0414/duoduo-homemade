@@ -62,12 +62,6 @@
 
 
 
-    const isCompleteSiteData = (data) => {
-        return Boolean(data?.menu && Array.isArray(data.menu.categories));
-    };
-
-
-
     const loadingOverlay = document.getElementById('loading-overlay');
     const errorOverlay = document.getElementById('error-overlay');
 
@@ -120,18 +114,6 @@
         const loadingText = document.querySelector('#loading-overlay p');
         if (loadingText && ui.loading?.general) {
             loadingText.textContent = ui.loading.general;
-        }
-
-        // 更新錯誤頁面文案
-        const errorOverlayText = document.getElementById('error-overlay');
-        if (errorOverlayText && ui.error) {
-            const errorParagraphs = errorOverlayText.querySelectorAll('p');
-            if (errorParagraphs[0] && ui.error.title) {
-                errorParagraphs[0].textContent = '⚠️ ' + ui.error.title;
-            }
-            if (errorParagraphs[1] && ui.error.message) {
-                errorParagraphs[1].textContent = ui.error.message;
-            }
         }
 
         // 更新複製提示
