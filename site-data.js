@@ -122,7 +122,7 @@ window.siteData = {
         title: '作品集',
         noticeHtml: '※ 全品項<b>接單製作</b>，自家手工確保最高品質與新鮮度 ※',
         tip: '點擊下方分類可查看更多品項與照片',
-        defaultCategory: 'pineapple',
+        defaultCategory: 'C1',
         categories: CATEGORIES
     },
     trust: {
@@ -150,7 +150,7 @@ window.siteData = {
     },
     footerText: '© 2026 多多手作 Duoduo Homemade. All Rights Reserved.',
     floatingBtn: {
-        label: 'Line 預約',
+        label: 'Line',
         url: 'https://line.me/ti/p/lraBka5XiD'
     },
     ui: {
