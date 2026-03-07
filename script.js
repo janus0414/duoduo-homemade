@@ -588,7 +588,7 @@
             setTimeout(() => copyToast.classList.remove('show'), 2000);
         };
 
-        const buildShareUrl = (shareId) => `${baseUrl}#${shareId}`;
+        const buildShareUrl = (shareId) => `${baseUrl}share/${shareId}.html`;
 
         // 一鍵複製連結
         document.querySelectorAll('.share-icon-btn').forEach((btn) => {
